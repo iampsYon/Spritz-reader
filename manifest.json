@@ -1,0 +1,11 @@
+{
+  "name": "Spritz Reader",
+  "short_name": "Spritz",
+  "start_url": ".",
+  "display": "standalone",
+  "background_color": "#202020",
+  "theme_color": "#202020",
+  "icons": [
+    
+  ]
+}

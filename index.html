@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <link rel="manifest" href="manifest.json" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Spritz Reader</title>
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="style.css" />
+
+  <!-- Core libs -->
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+  <script src="https://unpkg.com/epubjs@0.3.92/dist/epub.min.js"></script>
+
+  <!-- App -->
+  <script defer src="main.js"></script>
+</head>
+<body>
+
+  <!-- ===== Word rail ===== -->
+  <div class="spritz">
+    <div class="spritz-word"></div>
+  </div>
+
+  <!-- ===== Progress bar ===== -->
+  <input id="progress_bar" type="range" min="0" value="0" step="1" />
+
+  <!-- ===== Controls ===== -->
+  <div class="settings">
+
+    <input id="spritz_wpm" class="speed" type="number" value="300" step="50" min="50" />
+
+    <button id="spritz_toggle" class="demo-toggle">Start</button>
+
+    <select id="chapter_select" class="chapter-select">
+      <option value="0">Manual Text</option>
+    </select>
+
+    <label class="epub-label">
+      <input id="epub_file" type="file" accept=".epub" hidden />
+      <span class="epub-btn">Choose&nbsp;EPUB…</span>
+    </label>
+
+    <textarea class="demo-text">
+Spritz. Paste or upload an EPUB to try speed-reading.
+    </textarea>
+
+    <button id="spritz_change" class="demo-text-change">Refresh Text</button>
+  </div>
+
+  <!-- ===== Register PWA service-worker ===== -->
+  <script>
+    if ("serviceWorker" in navigator) {
+      navigator.serviceWorker.register("sw.js").catch(console.error);
+    }
+  </script>
+</body>
+</html>
