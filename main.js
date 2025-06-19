@@ -140,16 +140,22 @@ function loadChapter(i) {
 }
 
 /* =========================================================
-   EPUB IMPORT  (natural sort & punctuation-skip already in)
+   EPUB IMPORT  (robust extractor with natural sort)
    ========================================================= */
 $("#epub_file").on("change", async e => {
-  const file = e.target.files[0]; if (!file) return;
+  const f = e.target.files[0]; if (!f) return;
   $btn.prop("disabled", true).text("Loading…");
 
   try {
-    const buf = await file.arrayBuffer();
+    const buf = await f.arrayBuffer();
     chapters  = await extractChapters(buf);
-    if (!chapters.length) throw new Error("Could not extract chapter text.");
+
+    // ---- fixed guard ------------------------------------
+    if (!Array.isArray(chapters) || !chapters.length) {
+      throw new Error("Could not extract chapter text.");
+    }
+    // -----------------------------------------------------
+
     chapters.sort((a, b) => coll.compare(a.title, b.title));
     fillSelect(); loadChapter(0);
   } catch (err) {
